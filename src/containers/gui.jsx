@@ -40,11 +40,32 @@ import GUIComponent from '../components/gui/gui.jsx';
 import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
 import ActionLog from '../components/action-log/action-log.jsx';
 
+import userEventLog from '../../node_modules/scratch-vm/src/user-logging/user-event-log.js';
+
 class GUI extends React.Component {
     componentDidMount () {
         setIsScratchDesktop(this.props.isScratchDesktop);
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
+
+        // goessm add user input event listeners
+        window.addEventListener('keydown', e => {
+            userEventLog.logEvent('keydown', new Map(Object.entries({key: e.key})));
+        });
+        window.addEventListener('mousedown', e => {
+            userEventLog.logEvent('mousedown', new Map(Object.entries({
+                button: e.button,
+                screenX: e.screenX,
+                screenY: e.screenY
+            })));
+        });
+        window.addEventListener('mouseup', e => {
+            userEventLog.logEvent('mouseup', new Map(Object.entries({
+                button: e.button,
+                screenX: e.screenX,
+                screenY: e.screenY
+            })));
+        });
     }
     componentDidUpdate (prevProps) {
         if (this.props.projectId !== prevProps.projectId && this.props.projectId !== null) {
