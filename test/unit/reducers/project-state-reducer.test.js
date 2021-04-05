@@ -1,5 +1,6 @@
 /* eslint-env jest */
-import projectStateReducer, {
+import projectStateReducer from '../../../src/reducers/project-state';
+import {
     LoadingState,
     autoUpdateProject,
     doneCreatingProject,

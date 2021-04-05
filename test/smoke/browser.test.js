@@ -16,9 +16,7 @@ const UNSUPPORTED_MESSAGE = 'Scratch 3.0 does not support Internet Explorer';
 describe('Smoke tests on older browsers', () => {
     let driver;
 
-    afterEach(async () => {
-        if (driver) await driver.quit();
-    });
+    afterEach(async () => await (driver && driver.quit()));
 
     test('Credentials should be provided', () => {
         expect(SAUCE_USERNAME && SAUCE_ACCESS_KEY && SMOKE_URL).toBeTruthy();

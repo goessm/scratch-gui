@@ -1,7 +1,6 @@
 const OPEN_MENU = 'scratch-gui/menus/OPEN_MENU';
 const CLOSE_MENU = 'scratch-gui/menus/CLOSE_MENU';
 
-const MENU_ABOUT = 'aboutMenu';
 const MENU_ACCOUNT = 'accountMenu';
 const MENU_FILE = 'fileMenu';
 const MENU_EDIT = 'editMenu';
@@ -10,7 +9,6 @@ const MENU_LOGIN = 'loginMenu';
 
 
 const initialState = {
-    [MENU_ABOUT]: false,
     [MENU_ACCOUNT]: false,
     [MENU_FILE]: false,
     [MENU_EDIT]: false,
@@ -41,9 +39,6 @@ const closeMenu = menu => ({
     type: CLOSE_MENU,
     menu: menu
 });
-const openAboutMenu = () => openMenu(MENU_ABOUT);
-const closeAboutMenu = () => closeMenu(MENU_ABOUT);
-const aboutMenuOpen = state => state.scratchGui.menus[MENU_ABOUT];
 const openAccountMenu = () => openMenu(MENU_ACCOUNT);
 const closeAccountMenu = () => closeMenu(MENU_ACCOUNT);
 const accountMenuOpen = state => state.scratchGui.menus[MENU_ACCOUNT];
@@ -63,9 +58,6 @@ const loginMenuOpen = state => state.scratchGui.menus[MENU_LOGIN];
 export {
     reducer as default,
     initialState as menuInitialState,
-    openAboutMenu,
-    closeAboutMenu,
-    aboutMenuOpen,
     openAccountMenu,
     closeAccountMenu,
     accountMenuOpen,
