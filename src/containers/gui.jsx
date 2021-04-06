@@ -15,7 +15,8 @@ import {
     activateTab,
     BLOCKS_TAB_INDEX,
     COSTUMES_TAB_INDEX,
-    SOUNDS_TAB_INDEX
+    SOUNDS_TAB_INDEX,
+    LOG_TAB_INDEX, // goessm log tab
 } from '../reducers/editor-tab';
 
 import {
@@ -38,7 +39,6 @@ import cloudManagerHOC from '../lib/cloud-manager-hoc.jsx';
 
 import GUIComponent from '../components/gui/gui.jsx';
 import {setIsScratchDesktop} from '../lib/isScratchDesktop.js';
-import ActionLog from '../components/action-log/action-log.jsx';
 
 import userEventLog from '../../node_modules/scratch-vm/src/user-logging/user-event-log.js';
 
@@ -104,15 +104,12 @@ class GUI extends React.Component {
             ...componentProps
         } = this.props;
         return (
-            <div>
-                <ActionLog />
-                <GUIComponent
-                    loading={fetchingProject || isLoading || loadingStateVisible}
-                    {...componentProps}
-                >
-                    {children}
-                </GUIComponent>
-            </div>
+            <GUIComponent
+                loading={fetchingProject || isLoading || loadingStateVisible}
+                {...componentProps}
+            >
+                {children}
+            </GUIComponent>
         );
     }
 }
@@ -168,6 +165,7 @@ const mapStateToProps = state => {
         loadingStateVisible: state.scratchGui.modals.loadingProject,
         projectId: state.scratchGui.projectState.projectId,
         soundsTabVisible: state.scratchGui.editorTab.activeTabIndex === SOUNDS_TAB_INDEX,
+        logTabVisible: state.scratchGui.editorTab.activeTabIndex === LOG_TAB_INDEX, // goessm log tab
         targetIsStage: (
             state.scratchGui.targets.stage &&
             state.scratchGui.targets.stage.id === state.scratchGui.targets.editingTarget
@@ -183,6 +181,7 @@ const mapDispatchToProps = dispatch => ({
     onActivateTab: tab => dispatch(activateTab(tab)),
     onActivateCostumesTab: () => dispatch(activateTab(COSTUMES_TAB_INDEX)),
     onActivateSoundsTab: () => dispatch(activateTab(SOUNDS_TAB_INDEX)),
+    onActivateLogTab: () => dispatch(activateTab(LOG_TAB_INDEX)), // goessm log tab
     onRequestCloseBackdropLibrary: () => dispatch(closeBackdropLibrary()),
     onRequestCloseCostumeLibrary: () => dispatch(closeCostumeLibrary()),
     onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal())

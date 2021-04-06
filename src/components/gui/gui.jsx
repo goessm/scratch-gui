@@ -40,6 +40,8 @@ import codeIcon from './icon--code.svg';
 import costumesIcon from './icon--costumes.svg';
 import soundsIcon from './icon--sounds.svg';
 
+import LogTab from '../../containers/log_tab.jsx'; // goessm log tab
+
 const messages = defineMessages({
     addExtension: {
         id: 'gui.gui.addExtension',
@@ -97,6 +99,7 @@ const GUIComponent = props => {
         onToggleLoginOpen,
         onActivateCostumesTab,
         onActivateSoundsTab,
+        onActivateLogTab, // goessm
         onActivateTab,
         onClickLogo,
         onExtensionButtonClick,
@@ -112,6 +115,7 @@ const GUIComponent = props => {
         onTelemetryModalOptOut,
         showComingSoon,
         soundsTabVisible,
+        logTabVisible, // goessm log tab
         stageSizeMode,
         targetIsStage,
         telemetryModalVisible,
@@ -291,6 +295,21 @@ const GUIComponent = props => {
                                             id="gui.gui.soundsTab"
                                         />
                                     </Tab>
+                                    {/* goessm log tab */}
+                                    <Tab
+                                        className={tabClassNames.tab}
+                                        onClick={onActivateLogTab}
+                                    >
+                                        <img
+                                            draggable={false}
+                                            src={soundsIcon}
+                                        />
+                                        <FormattedMessage
+                                            defaultMessage="Log"
+                                            description="Button to get to the log panel"
+                                            id="gui.gui.logTab"
+                                        />
+                                    </Tab>
                                 </TabList>
                                 <TabPanel className={tabClassNames.tabPanel}>
                                     <Box className={styles.blocksWrapper}>
@@ -327,6 +346,10 @@ const GUIComponent = props => {
                                 </TabPanel>
                                 <TabPanel className={tabClassNames.tabPanel}>
                                     {soundsTabVisible ? <SoundTab vm={vm} /> : null}
+                                </TabPanel>
+                                {/* goessm log tab */}
+                                <TabPanel className={tabClassNames.tabPanel}>
+                                    {logTabVisible ? <LogTab vm={vm} /> : null}
                                 </TabPanel>
                             </Tabs>
                             {backpackVisible ? (
